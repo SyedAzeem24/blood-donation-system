@@ -1,0 +1,71 @@
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  z-index: 9999;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop {
+  width: 2rem;
+  height: 2.5rem;
+  background: var(--primary-red);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: relative;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.drop::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 25%;
+  width: 25%;
+  height: 25%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+.small .drop {
+  width: 1.5rem;
+  height: 1.875rem;
+}
+
+.medium .drop {
+  width: 2rem;
+  height: 2.5rem;
+}
+
+.large .drop {
+  width: 3rem;
+  height: 3.75rem;
+}
+
+.text {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}

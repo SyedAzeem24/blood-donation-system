@@ -1,0 +1,233 @@
+.pageContainer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.filterGroup > div {
+  min-width: 200px;
+}
+
+/* Form Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.info {
+  background-color: var(--hover-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.info p {
+  margin: 0.25rem 0;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* Warning Card */
+.warningCard {
+  text-align: center;
+  padding: 2rem;
+}
+
+.warningCard h3 {
+  color: #f59e0b;
+  margin-bottom: 1rem;
+}
+
+/* Empty Card */
+.emptyCard {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.emptyCard h3 {
+  color: var(--text-color);
+  margin: 0 0 0.5rem;
+}
+
+.emptyCard p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+}
+
+/* Donations List */
+.donationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.donationCard {
+  padding: 1.25rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.bloodTypeBadge {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--primary-red);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: capitalize;
+}
+
+.badgeLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cardBody {
+  margin-bottom: 1rem;
+}
+
+.donorName {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+.cardInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.cardInfo a {
+  color: var(--primary-red);
+  text-decoration: none;
+}
+
+.cardInfo a:hover {
+  text-decoration: underline;
+}
+
+.expiryInfo {
+  font-size: 0.75rem;
+  color: #f59e0b;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.contactSection {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.contactSection h4 {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin: 0 0 0.75rem;
+}
+
+.cardActions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Load More */
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.loadMoreBtn {
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-red);
+  background-color: transparent;
+  border: 2px solid var(--primary-red);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loadMoreBtn:hover:not(:disabled) {
+  background-color: var(--primary-red);
+  color: white;
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filterGroup {
+    width: 100%;
+  }
+  
+  .filterGroup > div {
+    flex: 1;
+  }
+  
+  .cardActions {
+    flex-direction: column;
+  }
+}
