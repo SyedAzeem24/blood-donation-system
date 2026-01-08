@@ -36,29 +36,33 @@ app.use(cors({
     if (isAllowed) {
       callback(null, true);
     } else {
-      callback(null, true); // Allow all for now, tighten in production if needed
+      callback(null, true); // Allow all for now
     }
   },
   credentials: true
 }));
 app.use(express.json());
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/donations', donationRoutes);
-app.use('/api/requests', requestRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/admin', adminRoutes);
+// MongoDB connection
+let isConnected = false;
 
-// Health check route
-app.get('/', (req, res) => {
-  res.json({ message: 'Blood Donation Management System API is running' });
-});
-
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
-});
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+  
+  try {
+    const db = await mongoose.connect(process.env.MONGODB_URI);
+    isConnected = db.connections[0].readyState === 1;
+    console.log('✅ Connected to MongoDB');
+    
+    // Seed admin on first connection
+    await seedAdmin();
+  } catch (error) {
+    console.error('❌ MongoDB connection error:', error.message);
+    throw error;
+  }
+};
 
 // Seed admin user function
 const seedAdmin = async () => {
@@ -75,38 +79,48 @@ const seedAdmin = async () => {
       });
       await admin.save();
       console.log('✅ Admin user created successfully');
-      console.log('📧 Email: admin@bloodbank.com');
-      console.log('🔑 Password: admin123');
-    } else {
-      console.log('✅ Admin user already exists');
     }
   } catch (error) {
     console.error('Error seeding admin:', error);
   }
 };
 
-// Connect to MongoDB and start server
-const PORT = process.env.PORT || 5000;
+// Database connection middleware (runs before each request)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(async () => {
-    console.log('✅ Connected to MongoDB');
-    
-    // Seed admin user
-    await seedAdmin();
-    
+// Health check route
+app.get('/', (req, res) => {
+  res.json({ message: 'Blood Donation Management System API is running' });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/donations', donationRoutes);
+app.use('/api/requests', requestRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
+
+// For local development only
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  connectDB().then(() => {
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
-  })
-  .catch((error) => {
-    console.error('❌ MongoDB connection error:', error.message);
-    process.exit(1);
   });
+}
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (error) => {
-  console.error('Unhandled Rejection:', error);
-});
-
+// Export for Vercel
 module.exports = app;
