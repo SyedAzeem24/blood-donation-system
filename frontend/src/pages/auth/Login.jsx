@@ -64,7 +64,9 @@ const Login = () => {
     <div className={styles.authContainer}>
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
-          <span className={styles.logo}>🩸</span>
+          <div className={styles.logo}>
+            <img src="/blood-drop.svg" alt="Blood Drop" className={styles.logoIcon} />
+          </div>
           <h1 className={styles.title}>Welcome Back</h1>
           <p className={styles.subtitle}>Sign in to your account</p>
         </div>
