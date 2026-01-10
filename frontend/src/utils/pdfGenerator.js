@@ -9,25 +9,21 @@ export const generateDonationReceipt = (receiptData) => {
   doc.setTextColor(220, 38, 38);
   doc.text('Blood Donation Receipt', 105, 25, { align: 'center' });
   
-  // Logo/Icon
-  doc.setFontSize(40);
-  doc.text('🩸', 105, 45, { align: 'center' });
-  
   // Receipt ID
   doc.setFontSize(12);
   doc.setTextColor(100, 100, 100);
-  doc.text(`Receipt ID: ${receiptData.receiptId}`, 105, 60, { align: 'center' });
+  doc.text(`Receipt ID: ${receiptData.receiptId}`, 105, 40, { align: 'center' });
   
   // Divider
   doc.setDrawColor(220, 38, 38);
   doc.setLineWidth(0.5);
-  doc.line(20, 70, 190, 70);
+  doc.line(20, 50, 190, 50);
   
   // Content
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
   
-  const startY = 85;
+  const startY = 65;
   const lineHeight = 12;
   
   const details = [
